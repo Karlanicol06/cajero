@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "atm.h"
+#include "practicaja.h"
 
 int main()
 {
@@ -20,7 +20,7 @@ int main()
     while (opcion != 5)
     {
 
-        printf("1.Iniciar sesion\n2.Busqueda\n3.Deposito\n4.Crear cuenta\n5.Salir\n6.Guardar\n");
+        printf("\n1.Iniciar sesion\n2.Busqueda\n3.Deposito\n4.Crear cuenta\n5.Salir\n6.Guardar\n");
         scanf("%d", &opcion);
 
         switch (opcion)
