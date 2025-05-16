@@ -14,12 +14,19 @@ struct cliente {
 
 int validar(float x) {
     if (x > 0) {
-        printf("La cantidad ingresada es válida.\n");
+        printf("La cantidad ingresada es valida.\n");
         return 1;
     } else {
-        printf("La cantidad ingresada es negativa, ingrese un número positivo\n");
+        printf("La cantidad ingresada es negativa, ingrese un numero positivo\n");
         return 0;
     }
+}
+
+int compararNombreCompleto(struct cliente c, const char *entrada)
+{
+    char nombreCompleto[100];
+    snprintf(nombreCompleto, sizeof(nombreCompleto), "%s %s", c.nombre, c.apellido);
+    return strcmp(nombreCompleto, entrada) == 0;
 }
 
 void consultarSaldo(struct cliente clientes[], int cuentaSeleccionada) {
@@ -40,12 +47,12 @@ void realizarDeposito(struct cliente clientes[], int cuentaSeleccionada) {
         v = validar(num);
     }
     clientes[cuentaSeleccionada].saldo += num;
-    printf("Su depósito se realizó con éxito. El saldo actual es: %.2f\n", clientes[cuentaSeleccionada].saldo);
+    printf("Su deposito se realizo con exito. El saldo actual es: %.2f\n", clientes[cuentaSeleccionada].saldo);
 }
 
 void realizarRetiro(struct cliente clientes[], int cuentaSeleccionada) {
     float num;
-    int v;
+    int v, continuar;
     do {
         printf("========= RETIROS ==========\n");
         printf("Ingrese la cantidad que desea retirar: \n");
@@ -56,11 +63,22 @@ void realizarRetiro(struct cliente clientes[], int cuentaSeleccionada) {
             v = validar(num);
         }
 
+        printf("Esta seguro que desea realizar el retiro?\n");
+        printf("1.-Si\n");
+        printf("2.-No\n");
+        scanf("%d",&continuar);
+
+        if(continuar !=1)
+        {
+            printf("Operacion cancelada\n");
+            break;
+        }
+
         if (num > clientes[cuentaSeleccionada].saldo) {
-            printf("No tienes suficiente saldo, por favor ingresa una cantidad válida:\n");
+            printf("No tienes suficiente saldo, por favor ingresa una cantidad valida:\n");
         } else {
             clientes[cuentaSeleccionada].saldo -= num;
-            printf("Su retiro se realizó con éxito. Saldo restante: %.2f\n", clientes[cuentaSeleccionada].saldo);
+            printf("Su retiro se realizo con exito. Saldo restante: %.2f\n", clientes[cuentaSeleccionada].saldo);
             break;
         }
     } while (1);
@@ -84,7 +102,7 @@ int autenticarNip(struct cliente clientes[], int cuentaSeleccionada) {
         }
 
         if (intentos == maxIntentos) {
-            printf("Has alcanzado el número máximo de intentos.\n");
+            printf("Has alcanzado el numero maximo de intentos.\n");
             return 0;
         }
     }
